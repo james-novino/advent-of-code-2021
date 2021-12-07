@@ -5,7 +5,24 @@ import java.security.MessageDigest
 /**
  * Reads lines from the given input txt file.
  */
-fun readInput(day: Int, name: String) = File("src/com/advent/code/day${day}", "$name.txt").readLines()
+fun readInput(name: String): List<String> {
+    val packageName = name.split("Day")[1].replace("_test", "").toInt()
+    return File("src/com/advent/code/day${packageName}", "$name.txt").readLines()
+}
+
+/**
+ * Convert input string into List<Int>
+ */
+fun parseIntCsv(input: String): List<Int> {
+    return input.split(",").map { it.toInt() }
+}
+
+/**
+ * Calculates the [triangular number](https://en.wikipedia.org/wiki/Triangular_number) of the given number.
+ */
+fun Long.triangular(): Long = ((this * (this + 1)) / 2)
+
+
 
 /**
  * Converts string to md5 hash.

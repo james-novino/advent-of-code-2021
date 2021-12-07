@@ -3,20 +3,10 @@ package com.advent.code.day4
 import readInput
 
 fun main() {
-    val (year, day) = "2021" to "Day04"
 
-    fun part1(input: List<String>): Int {
-        val (numbers, boards) = parseInput(input)
-        return playBingo(boards, numbers)
-    }
 
-    fun part2(input: List<String>): Int {
-        val (numbers, boards) = parseInput(input)
-        return playBingo(boards, numbers, firstFound = false)
-    }
-
-    val testInput = readInput(4, "Day04_test")
-    val input = readInput(4, "Day04")
+    val testInput = readInput("Day04_test")
+    val input = readInput("Day04")
 
     check(part1(testInput) == 4512)
     println(part1(input))
@@ -25,7 +15,17 @@ fun main() {
     println(part2(input))
 }
 
-fun parseInput(input: List<String>): Pair<List<Int>, List<List<MutableList<Int>>>> {
+fun part1(input: List<String>): Int {
+    val (numbers, boards) = parseInput(input)
+    return playBingo(boards, numbers)
+}
+
+fun part2(input: List<String>): Int {
+    val (numbers, boards) = parseInput(input)
+    return playBingo(boards, numbers, firstFound = false)
+}
+
+private fun parseInput(input: List<String>): Pair<List<Int>, List<List<MutableList<Int>>>> {
     val numbers = input.first().split(",").map { it.toInt() }
 
     val lines = input.drop(1).filter { it.isNotEmpty() }
@@ -38,7 +38,7 @@ fun parseInput(input: List<String>): Pair<List<Int>, List<List<MutableList<Int>>
     return numbers to boards
 }
 
-fun playBingo(
+private fun playBingo(
     boards: List<List<MutableList<Int>>>,
     numbers: List<Int>,
     firstFound: Boolean = true
@@ -72,11 +72,11 @@ fun playBingo(
     return 0
 }
 
-fun List<List<Int>>.sumBoard(): Int {
+private fun List<List<Int>>.sumBoard(): Int {
     return sumOf { it.filter { it > 0 }.sum() }
 }
 
-fun List<List<Int>>.checkBoard(hasZero: Boolean): Pair<Boolean, Int> {
+private fun List<List<Int>>.checkBoard(hasZero: Boolean): Pair<Boolean, Int> {
     for (row in indices) {
         val bingo = this[row].all { if (hasZero) it <= 0 else it < 0 }
         if (bingo) return Pair(true, sumBoard())
