@@ -3,7 +3,6 @@ package com.advent.code.day7
 import parseIntCsv
 import readInput
 import triangular
-import java.math.BigInteger
 import kotlin.math.abs
 
 fun main() {
