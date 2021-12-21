@@ -11,6 +11,14 @@ fun readInput(name: String): List<String> {
 }
 
 /**
+ * Reads text from the given input txt file.
+ */
+fun readFile(name: String) : String {
+    val packageName = name.split("Day")[1].replace("_test", "").toInt()
+    return File("src/com/advent/code/day${packageName}", "$name.txt").readText()
+}
+
+/**
  * Convert input string into List<Int>
  */
 fun parseIntCsv(input: String): List<Int> {
